@@ -21,7 +21,6 @@ public class AnalyticsController {
         Map<String, AnalyticsData> analyticsDataList = analyticsService.getAllAnalyticsData();
 
         model.addAttribute("analyticsDataList", analyticsDataList);
-
         return "analytics";
     }
 }

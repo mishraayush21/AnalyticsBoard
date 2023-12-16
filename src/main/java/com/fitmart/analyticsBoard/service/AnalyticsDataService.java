@@ -21,6 +21,14 @@ public class AnalyticsDataService {
         } else {
             analyticsDataMap.put(productId, analyticsData);
         }
+        calculateAndStoreMetrics(analyticsData);
+    }
+
+    private void calculateAndStoreMetrics(AnalyticsData analyticsData) {
+        String productId = analyticsData.getProductId();
+        AnalyticsData data = analyticsDataMap.get(productId);
+        data.setCtr((data.getViews() != 0) ? (double) data.getClicks() / data.getViews() : 0);
+        data.setConversionRate((data.getClicks() != 0) ? (double) data.getSales() / data.getClicks() : 0);
     }
 
     public AnalyticsData getAnalyticsData(String productId) {
@@ -35,25 +43,29 @@ public class AnalyticsDataService {
         if (analyticsDataMap.containsKey(productId)) {
             AnalyticsData existingData = analyticsDataMap.get(productId);
             existingData.setViews(existingData.getViews() + count);
+            calculateAndStoreMetrics(existingData);
         } else {
             AnalyticsData newData = new AnalyticsData(productId, count, 0, 0);
             analyticsDataMap.put(productId, newData);
         }
     }
 
-    public void incrementCLickCount(String productId, int count) {
+    public void incrementClickCount(String productId, int count) {
         if (analyticsDataMap.containsKey(productId)) {
             AnalyticsData existingData = analyticsDataMap.get(productId);
             existingData.setClicks(existingData.getClicks() + count);
+            calculateAndStoreMetrics(existingData);
         } else {
             AnalyticsData newData = new AnalyticsData(productId, 0, count, 0);
             analyticsDataMap.put(productId, newData);
         }
     }
+
     public void incrementSaleCount(String productId, int count) {
         if (analyticsDataMap.containsKey(productId)) {
             AnalyticsData existingData = analyticsDataMap.get(productId);
             existingData.setSales(existingData.getSales() + count);
+            calculateAndStoreMetrics(existingData);
         } else {
             AnalyticsData newData = new AnalyticsData(productId, 0, 0, count);
             analyticsDataMap.put(productId, newData);

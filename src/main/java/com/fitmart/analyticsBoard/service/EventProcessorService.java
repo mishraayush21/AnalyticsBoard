@@ -19,7 +19,7 @@ public class EventProcessorService {
                 analyticsDataService.incrementViews(event.getProductId(), eventCount);
                 break;
             case ADDED_TO_CART:
-                analyticsDataService.incrementCLickCount(event.getProductId(), eventCount);
+                analyticsDataService.incrementClickCount(event.getProductId(), eventCount);
                 break;
             case PRODUCTS_SOLD:
                 analyticsDataService.incrementSaleCount(event.getProductId(), eventCount);
