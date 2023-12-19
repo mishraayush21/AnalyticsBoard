@@ -14,15 +14,17 @@ public class EventProcessorService {
 
     public void processEvent(Event event) {
         int eventCount = 1;
+        String productId = event.getProductId();
+
         switch (event.getEventType()) {
             case ITEM_VIEWED:
-                analyticsDataService.incrementViews(event.getProductId(), eventCount);
+                analyticsDataService.incrementCount(productId, eventCount, 0, 0);
                 break;
             case ADDED_TO_CART:
-                analyticsDataService.incrementClickCount(event.getProductId(), eventCount);
+                analyticsDataService.incrementCount(productId, 0, eventCount, 0);
                 break;
             case PRODUCTS_SOLD:
-                analyticsDataService.incrementSaleCount(event.getProductId(), eventCount);
+                analyticsDataService.incrementCount(productId, 0, 0, eventCount);
                 break;
             default:
                 break;

@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "analytics_data")
 @Getter
 @Setter
 @Data
-public class AnalyticsData {
+public class AnalyticsData implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
