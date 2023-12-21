@@ -22,14 +22,10 @@ public class AnalyticsDataService {
 
     public Map<String, AnalyticsData> getAllAnalyticsData() {
         Map<String, AnalyticsData> analyticsDataMap = new HashMap<>();
-
-        // Check if Redis cache is empty
         if (Objects.requireNonNull(redisTemplate.keys("*")).isEmpty()) {
-            System.out.println("\n\nNeed to read from db since cache is empty\n\n");
             populateCacheFromDatabase();
         }
 
-        // Iterate over product keys in Redis
         for (String key : Objects.requireNonNull(redisTemplate.keys("*"))) {
             String productId = extractProductId(key);
             int views = getMetric(productId, "views");
@@ -61,7 +57,6 @@ public class AnalyticsDataService {
         redisTemplate.opsForValue().set(salesKey, analyticsData.getSales());
     }
 
-
     private String extractProductId(String key) {
         int index = key.indexOf(":");
         if (index != -1) {
@@ -70,7 +65,6 @@ public class AnalyticsDataService {
             return key;
         }
     }
-
 
     public void incrementCount(String productId, int views, int clicks, int sales) {
         incrementMetric(productId, "views", views);
@@ -110,7 +104,6 @@ public class AnalyticsDataService {
                 analyticsData = new AnalyticsData(productId, views, clicks, sales);
             }
             analyticsDataRepository.save(analyticsData);
-
         }
         redisTemplate.delete(Objects.requireNonNull(redisTemplate.keys("*")));
     }
