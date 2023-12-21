@@ -32,8 +32,8 @@
     <tr th:each="entry : ${analyticsDataList}">
       <td th:text="${entry.key}"></td>
       <td th:text="${entry.value.views}">0</td>
-      <td th:text="${entry.value.sales}">0</td>
       <td th:text="${entry.value.clicks}">0</td>
+      <td th:text="${entry.value.sales}">0</td>
       <td th:text="${entry.value.ctr}">0</td>
       <td th:text="${entry.value.conversionRate}">0</td>
     </tr>
