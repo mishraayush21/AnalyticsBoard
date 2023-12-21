@@ -11,7 +11,6 @@ public class BulkInsertionService {
     private AnalyticsDataService analyticsDataService;
     @Scheduled(cron = "0 */10 * * * *")
     public void bulkInsert() {
-        System.out.println(".......Moving cache to DB..............");
         analyticsDataService.bulkInsertToMySQL();
     }
 }
