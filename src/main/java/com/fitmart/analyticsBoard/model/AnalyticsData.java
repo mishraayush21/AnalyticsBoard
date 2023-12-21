@@ -47,8 +47,8 @@ public class AnalyticsData implements Serializable {
         this.views = views;
         this.sales = sales;
         this.clicks = clicks;
-        this.ctr = ( views != 0 ) ? (double) clicks / views : 0;
-        this.conversionRate = ( clicks != 0 ) ? (double) sales / clicks : 0;
+        this.ctr = (views != 0) ? Double.parseDouble(String.format("%.2f", (double) clicks / views)) : 0;
+        this.conversionRate = (clicks != 0) ? Double.parseDouble(String.format("%.2f", (double) sales / clicks)) : 0;
     }
 
 }
